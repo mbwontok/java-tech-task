@@ -30,7 +30,14 @@ The service provides an endpoint that will determine, from a set of recipes, wha
     ```
     
     ```
-    docker exec $CONTAINER_ID /bin/sh -c 'mysql -u root -prezdytechtask lunch </lunch-data.sql'
+    docker exec $CONTAINER_ID /bin/sh -c 'mysql -u <MYSQL_USER> -p <MYSQL_ROOT_PASSWORD> lunch </lunch-data.sql'
     ```
     
 3. Run Springboot LunchApplication
+
+
+### Assumptions
+
+    1. In order to prevent storing password in plain text in version control root password for database has been externalized MYSQL_ROOT_PASSWORD. ".env" file in main catalogue shoud contain this sensitive value for different environments.
+    2. Tools that can ensure/force standard code formatting for codebase are omitted.
+    3. API endpoints are not secured with spring security in order to avoid aditional confiuration and overhead.
