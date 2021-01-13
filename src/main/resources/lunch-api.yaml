@@ -26,6 +26,54 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Recipe'
+  /lunch/recipe:
+    get:
+      tags:
+        - Lunch
+      description: 'Fetch recipe'
+      operationId: findRecipe
+      parameters:
+        - in: query
+          name: title
+          schema:
+            type: string
+          description: Recipe title
+      responses:
+        '200':
+          description: Return recipe if availabe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipe'
+        '404':
+          description: Recipe is not availabe
+  /lunch/recepies:
+    get:
+      tags:
+        - Lunch
+      description: 'Search recipes that can be prepared based on availability of the ingredients in fridge.'
+      operationId: searchRecipes
+      parameters:
+        - in: query
+          name: date
+          schema:
+            type: string
+          description: Date when recipes should be available
+        - in: query
+          name: ingredientsSubmission
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: Return list of recepies that are availabe
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recipe'
 components:
   schemas:
     Recipe:
@@ -36,6 +84,10 @@ components:
           type: string
           description: 'Recipe details'
           example: Omelette
+        ingredients:
+          type: array
+          items:
+            type: string
     ErrorResponse:
       type: object
       properties:

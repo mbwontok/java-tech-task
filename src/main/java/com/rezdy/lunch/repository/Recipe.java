@@ -1,4 +1,6 @@
-package com.rezdy.lunch.service;
+package com.rezdy.lunch.repository;
+
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -7,22 +9,25 @@ import java.util.Set;
 public class Recipe {
 
     @Id
+    @Column(name = "TITLE")
     private String title;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "recipe_ingredient",
-            joinColumns = @JoinColumn(name = "title"),
+            joinColumns = @JoinColumn(name = "recipe"),
             inverseJoinColumns = @JoinColumn(name = "ingredient"))
     private Set<Ingredient> ingredients;
 
-    public String getTitle() {
-        return title;
+    public Recipe() {}
+
+    public Recipe(String title) {
+        Assert.notNull(title, "title is missing");
+        this.title = title;
     }
 
-    public Recipe setTitle(String title) {
-        this.title = title;
-        return this;
+    public String getTitle() {
+        return title;
     }
 
     public Set<Ingredient> getIngredients() {
