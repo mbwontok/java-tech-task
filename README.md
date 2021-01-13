@@ -41,3 +41,4 @@ The service provides an endpoint that will determine, from a set of recipes, wha
     1. In order to prevent storing password in plain text in version control root password for database has been externalized MYSQL_ROOT_PASSWORD. ".env" file in main catalogue shoud contain this sensitive value for different environments.
     2. Tools that can ensure/force standard code formatting for codebase are omitted.
     3. API endpoints are not secured with spring security in order to avoid aditional confiuration and overhead.
+    4. "Contract First" approach with OpenAPI document and interface generation was introduced to begin creation of production ready API containing simple anti-corruption layer.

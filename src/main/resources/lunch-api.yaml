@@ -1,0 +1,46 @@
+openapi: 3.0.1
+info:
+  title: Lunch API definition
+  version: 0.0.1
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /lunch:
+    get:
+      tags:
+        - Lunch
+      description: 'Recipes that can be prepared based on availability of the ingredients in fridge.'
+      operationId: getRecipes
+      parameters:
+        - in: query
+          name: date
+          schema:
+            type: string
+          description: Date when recipes should be available
+      responses:
+        '200':
+          description: Return list of recepies that are availabe
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recipe'
+components:
+  schemas:
+    Recipe:
+      type: object
+      properties:
+        title:
+          maxLength: 256
+          type: string
+          description: 'Recipe details'
+          example: Omelette
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+          description: 'Error message'
+          example: 'Given date is not valid'
+
